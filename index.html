@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Store - Your Online Shopping Destination</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .product-card img {
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .cart-badge {
+            animation: bounce 0.3s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #000000;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .glow-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .category-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .search-input {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .luxury-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .premium-text {
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="glass-morphism sticky top-0 z-50 luxury-border">
+        <nav class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <h1 class="text-3xl font-black text-white premium-text">
+                        <i class="fas fa-store mr-2"></i>MODERN STORE
+                    </h1>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#home" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Home</a>
+                        <a href="#products" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Products</a>
+                        <a href="#categories" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Categories</a>
+                        <a href="#about" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">About</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Search products..." 
+                               class="search-input pl-10 pr-4 py-3 rounded-full luxury-border focus:outline-none">
+                        <i class="fas fa-search absolute left-3 top-3 text-white/50"></i>
+                    </div>
+                    <button id="cartBtn" class="relative glow-button px-6 py-3 rounded-full font-light premium-text luxury-border">
+                        <i class="fas fa-shopping-cart mr-2"></i>Cart
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs cart-badge font-bold">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="text-white py-32 relative">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-7xl font-black mb-8 fade-in text-white premium-text">
+                MODERN LUXURY
+            </h2>
+            <p class="text-2xl mb-12 fade-in text-gray-400 max-w-3xl mx-auto premium-text">
+                Experience the pinnacle of elegance with our curated collection of premium products
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center fade-in">
+                <button onclick="scrollToProducts()" class="glow-button px-12 py-4 rounded-full font-light premium-text luxury-border text-lg">
+                    <i class="fas fa-shopping-bag mr-3"></i>EXPLORE COLLECTION
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="py-20">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-black text-center mb-16 text-white premium-text">CATEGORIES</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="category-card p-8 rounded-2xl text-center cursor-pointer luxury-border" onclick="filterByCategory('electronics')">
+                    <div class="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-laptop text-white text-3xl"></i>
+                    </div>
+                    <h4 class="font-light text-white text-xl premium-text">Electronics</h4>
+                </div>
+                <div class="category-card p-8 rounded-2xl text-center cursor-pointer luxury-border" onclick="filterByCategory('clothing')">
+                    <div class="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tshirt text-white text-3xl"></i>
+                    </div>
+                    <h4 class="font-light text-white text-xl premium-text">Clothing</h4>
+                </div>
+                <div class="category-card p-8 rounded-2xl text-center cursor-pointer luxury-border" onclick="filterByCategory('home')">
+                    <div class="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-home text-white text-3xl"></i>
+                    </div>
+                    <h4 class="font-light text-white text-xl premium-text">Home & Garden</h4>
+                </div>
+                <div class="category-card p-8 rounded-2xl text-center cursor-pointer luxury-border" onclick="filterByCategory('sports')">
+                    <div class="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-football-ball text-white text-3xl"></i>
+                    </div>
+                    <h4 class="font-light text-white text-xl premium-text">Sports</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-black text-center mb-16 text-white premium-text">FEATURED PRODUCTS</h3>
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center h-full p-4">
+            <div class="rounded-2xl p-8 max-w-md w-full max-h-[80vh] overflow-y-auto luxury-border" style="background: rgba(255, 255, 255, 0.03);">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-black text-white premium-text">SHOPPING CART</h3>
+                    <button onclick="closeCart()" class="text-gray-400 hover:text-white transition">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="cartItems" class="mb-8">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div class="border-t border-white/10 pt-6">
+                    <div class="flex justify-between mb-6">
+                        <span class="font-light text-white premium-text">TOTAL</span>
+                        <span id="cartTotal" class="font-black text-3xl text-white premium-text">$0.00</span>
+                    </div>
+                    <button onclick="checkout()" class="glow-button w-full py-4 rounded-xl font-light premium-text luxury-border">
+                        <i class="fas fa-lock mr-3"></i>SECURE CHECKOUT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white py-16 mt-20 luxury-border" style="background: rgba(255, 255, 255, 0.03);">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <h4 class="font-black text-xl mb-6 text-white premium-text">ABOUT US</h4>
+                    <p class="text-gray-400 premium-text">The pinnacle of luxury shopping, curated for the discerning individual.</p>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl mb-6 text-white premium-text">CUSTOMER SERVICE</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="contact.html" class="hover:text-white transition premium-text">Contact Us</a></li>
+                        <li><a href="shipping.html" class="hover:text-white transition premium-text">Shipping Info</a></li>
+                        <li><a href="returns.html" class="hover:text-white transition premium-text">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl mb-6 text-white premium-text">QUICK LINKS</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="privacy.html" class="hover:text-white transition premium-text">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition premium-text">Terms of Service</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition premium-text">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl mb-6 text-white premium-text">FOLLOW US</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition transform hover:scale-110 luxury-border">
+                            <i class="fab fa-facebook text-white text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition transform hover:scale-110 luxury-border">
+                            <i class="fab fa-twitter text-white text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition transform hover:scale-110 luxury-border">
+                            <i class="fab fa-instagram text-white text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-16 pt-8 border-t border-white/10">
+                <p class="text-gray-400 premium-text">&copy; 2024 MODERN STORE. All rights reserved.</p>
+                <p class="mt-3 text-sm text-gray-500 premium-text">Example website created by <span class="text-white font-light">Sathishkumar Seenivasan</span></p>
+                <a href="https://sathishkumarseenivasan.netlify.app" target="_blank" class="inline-block mt-4 glow-button px-8 py-3 rounded-xl font-light premium-text luxury-border">
+                    <i class="fas fa-external-link-alt mr-3"></i>VISIT PORTFOLIO
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
