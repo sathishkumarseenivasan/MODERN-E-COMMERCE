@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Store - Your Online Shopping Destination</title>
+    <title>A E T H E R — Curated Modern Living</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f5f5f0;
+            --accent: #c9a962;
+            --text-light: #8b8b8b;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -16,188 +23,437 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #000000;
-            color: #ffffff;
+            background: #faf9f7;
+            color: var(--primary);
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
-        .glass-morphism {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .serif-font {
+            font-family: 'Playfair Display', serif;
         }
         
-        .product-card {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
         
-        .product-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .product-card img {
-            transition: transform 0.4s ease;
-        }
-        
-        .product-card:hover img {
-            transform: scale(1.08);
-        }
-        
-        .cart-badge {
-            animation: bounce 0.3s ease;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .glow-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            color: #000000;
-        }
-        
-        .glow-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+        /* Custom cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
         }
         
-        .glow-button:hover::before {
-            width: 300px;
-            height: 300px;
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease;
         }
         
-        .category-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .search-input {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-        
-        .search-input:focus {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        /* Navigation */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         
         .nav-link {
             position: relative;
+            color: var(--primary);
             transition: color 0.3s ease;
         }
         
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -4px;
             left: 0;
             width: 0;
             height: 1px;
-            background: #ffffff;
-            transition: width 0.3s ease;
+            background: var(--accent);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .nav-link:hover::after {
             width: 100%;
         }
         
-        .text-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
         }
         
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e6e1 100%);
+            z-index: -2;
+        }
+        
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(201, 169, 98, 0.15);
+            top: -200px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(139, 119, 101, 0.1);
+            bottom: -100px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(5deg); }
+            50% { transform: translate(-20px, 20px) rotate(-5deg); }
+            75% { transform: translate(20px, 30px) rotate(3deg); }
+        }
+        
+        .hero-image {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Product Cards */
+        .product-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+        
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+        
+        .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover .product-image-wrapper img {
+            transform: scale(1.08);
+        }
+        
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .add-to-cart-btn {
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 2px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover .add-to-cart-btn {
+            transform: translateY(0);
+        }
+        
+        .add-to-cart-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Category Cards */
+        .category-card {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 4/5;
+        }
+        
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+        }
+        
+        .cart-panel {
+            background: white;
+            max-width: 480px;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .cart-panel-open {
+            transform: translateX(0);
+        }
+        
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Badge */
+        .cart-badge {
+            background: var(--accent);
+            color: white;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        /* Search */
+        .search-container {
+            position: relative;
+        }
+        
+        .search-input {
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 12px 16px 12px 44px;
+            border-radius: 2px;
+            width: 280px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            width: 320px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.6);
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: #f0f0f0;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+            background: var(--accent);
+            border-radius: 3px;
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
+        /* Loading Animation */
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
         
-        .luxury-border {
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
-        .premium-text {
-            font-weight: 300;
-            letter-spacing: 0.05em;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            
+            .hero-section {
+                min-height: auto;
+                padding: 120px 0 60px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+    
     <!-- Header -->
-    <header class="glass-morphism sticky top-0 z-50 luxury-border">
-        <nav class="container mx-auto px-4 py-6">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <nav class="container mx-auto px-6 py-5">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-8">
-                    <h1 class="text-3xl font-black text-white premium-text">
-                        <i class="fas fa-store mr-2"></i>MODERN STORE
-                    </h1>
-                    <div class="hidden md:flex space-x-8">
-                        <a href="#home" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Home</a>
-                        <a href="#products" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Products</a>
-                        <a href="#categories" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">Categories</a>
-                        <a href="#about" class="nav-link text-white hover:text-gray-300 transition font-light premium-text">About</a>
-                    </div>
+                <a href="#" class="text-2xl serif-font font-semibold tracking-wider">
+                    A E T H E R
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-12">
+                    <a href="#home" class="nav-link text-sm uppercase tracking-widest">Home</a>
+                    <a href="#collections" class="nav-link text-sm uppercase tracking-widest">Collections</a>
+                    <a href="#categories" class="nav-link text-sm uppercase tracking-widest">Categories</a>
+                    <a href="#about" class="nav-link text-sm uppercase tracking-widest">About</a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <input type="text" id="searchInput" placeholder="Search products..." 
-                               class="search-input pl-10 pr-4 py-3 rounded-full luxury-border focus:outline-none">
-                        <i class="fas fa-search absolute left-3 top-3 text-white/50"></i>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="search-container hidden lg:block">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search..." class="search-input">
                     </div>
-                    <button id="cartBtn" class="relative glow-button px-6 py-3 rounded-full font-light premium-text luxury-border">
-                        <i class="fas fa-shopping-cart mr-2"></i>Cart
-                        <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs cart-badge font-bold">0</span>
+                    
+                    <button id="cartBtn" class="relative">
+                        <i class="far fa-shopping-bag text-xl"></i>
+                        <span id="cartCount" class="cart-badge absolute -top-2 -right-2">0</span>
+                    </button>
+                    
+                    <button class="md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
